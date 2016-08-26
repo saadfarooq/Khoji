@@ -75,8 +75,8 @@ buildscript {
 apply plugin: 'com.neenbedankt.android-apt'
 
 dependencies {
-    apt 'com.github.saadfarooq:khoji-compiler:0.0.1-SNAPSHOT'
-    compile 'com.github.saadfarooq:khoji-api:0.0.1-SNAPSHOT'
+    apt 'com.github.saadfarooq:khoji-compiler:0.0.1'
+    compile 'com.github.saadfarooq:khoji-api:0.0.1'
 }
 ```
 
