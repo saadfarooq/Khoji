@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'com.github.ben-manes.versions'
+
+sourceCompatibility = rootProject.ext.sourceCompatibilityVersion
+targetCompatibility = rootProject.ext.targetCompatibilityVersion
+
+dependencies {
+    compile project(':khoji-annotations')
+    compile rootProject.ext.javapoet
+    compile rootProject.ext.autoService
+}
+
+apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

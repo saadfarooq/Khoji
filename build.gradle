@@ -1,0 +1,52 @@
+ext {
+    androidPlugin = 'com.android.tools.build:gradle:2.1.3'
+    minSdkVersion = 14
+    targetSdkVersion = 23
+    compileSdkVersion = 23
+    buildToolsVersion = '23.0.2'
+
+    sourceCompatibilityVersion = JavaVersion.VERSION_1_7
+    targetCompatibilityVersion = JavaVersion.VERSION_1_7
+
+    gradleVersionsPlugin = 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
+    aptPlugin = 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+
+    ci = 'true'.equals(System.getenv('CI'))
+
+    def supportVersion = '23.1.1'
+    supportAnnotations = "com.android.support:support-annotations:$supportVersion"
+    supportV4 = "com.android.support:support-v4:$supportVersion"
+    supportAppCompat = "com.android.support:appcompat-v7:$supportVersion"
+
+    javapoet = 'com.squareup:javapoet:1.7.0'
+    autoService = 'com.google.auto.service:auto-service:1.0-rc2'
+}
+
+subprojects { project ->
+
+    repositories {
+        jcenter()
+    }
+
+    group = GROUP
+    version = VERSION_NAME
+
+    buildscript {
+        repositories {
+            jcenter()
+        }
+        dependencies {
+            classpath rootProject.ext.androidPlugin
+            classpath rootProject.ext.aptPlugin
+            classpath rootProject.ext.gradleVersionsPlugin
+        }
+    }
+
+//    project.apply plugin: 'com.github.ben-manes.versions'   // ./gradlew dependencyUpdates -Drevision=release
+}
+
+task genReadMe << {
+    def template = file('README.md.template').text
+    def result = template.replaceAll("%%version%%", VERSION_NAME)
+    file("README.md").withWriter{ it << result }
+}
