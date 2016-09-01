@@ -76,7 +76,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 dependencies {
     apt 'com.github.saadfarooq:khoji-compiler:0.0.1'
-    compile 'com.github.saadfarooq:khoji-api:0.0.1'
+    compile 'com.github.saadfarooq:khoji-annotations:0.0.1'
 }
 ```
 
@@ -86,7 +86,7 @@ Snapshots of the development version are available in [Sonatype's snapshots repo
 License
 -------
 
-    Copyright 2015 Saad Farooq
+    Copyright 2016 Saad Farooq
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
