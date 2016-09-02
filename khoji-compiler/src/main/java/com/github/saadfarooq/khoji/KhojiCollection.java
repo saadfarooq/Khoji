@@ -23,8 +23,8 @@ public class KhojiCollection {
 
     public KhojiCollection(TypeMirror iface, Elements elements, Types types) {
         this.types = types;
-        mainDeps = new HashSet<>();
-        classDepsMap = new HashMap<>();
+        mainDeps = new LinkedHashSet<>();
+        classDepsMap = new LinkedHashMap<>();
         this.iface = iface;
         this.genClassName = types.asElement(iface).getSimpleName() + "Collection";
         this.genPkgName = elements.getPackageOf(types.asElement(iface)).getQualifiedName().toString();
