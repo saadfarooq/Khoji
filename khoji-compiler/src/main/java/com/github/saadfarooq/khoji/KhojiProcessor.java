@@ -2,9 +2,6 @@ package com.github.saadfarooq.khoji;
 
 import com.google.auto.service.AutoService;
 
-import java.io.IOException;
-import java.util.*;
-
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
@@ -12,6 +9,8 @@ import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 import javax.tools.Diagnostic;
+import java.io.IOException;
+import java.util.*;
 
 @AutoService(Processor.class)
 public class KhojiProcessor extends AbstractProcessor {
@@ -47,6 +46,7 @@ public class KhojiProcessor extends AbstractProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        System.out.printf("---------------- Annotated elements: %d\n", roundEnv.getElementsAnnotatedWith(KhojiTarget.class).size());
         for (Element element : roundEnv.getElementsAnnotatedWith(KhojiTarget.class)) {
             if (element.getKind() != ElementKind.CLASS) {
                 error(element, "KhojiTarget annotations can only be applied to classes!");

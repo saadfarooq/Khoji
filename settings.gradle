@@ -1,1 +1,1 @@
-include ':sample', ':khoji-compiler', ':khoji-annotations'
+include ':sample', ':khoji-compiler', ':khoji-annotations', ':lib'

@@ -61,5 +61,6 @@ dependencies {
     compile rootProject.ext.supportAppCompat
 
     apt project(':khoji-compiler')
-    compile project(':khoji-annotations')
+
+    compile project(':lib')
 }
