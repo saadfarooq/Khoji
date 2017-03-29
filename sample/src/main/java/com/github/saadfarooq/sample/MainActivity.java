@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.github.saadfarooq.sample.draweritem.DrawerItem;
 import com.github.saadfarooq.sample.draweritem.DrawerItemCollection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.openDrawer(GravityCompat.START);
 
         ListView drawerList = (ListView) findViewById(R.id.drawer_list);
-        drawerList.setAdapter(new DrawerListAdapter(new DrawerItemCollection().getCollectedItems()));
+        drawerList.setAdapter(new DrawerListAdapter(new DrawerItemCollection("Main title", new ArrayList<String>()).getCollectedItems()));
     }
 
     private class DrawerListAdapter extends BaseAdapter {
