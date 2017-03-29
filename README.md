@@ -75,8 +75,8 @@ buildscript {
 apply plugin: 'com.neenbedankt.android-apt'
 
 dependencies {
-    apt 'com.github.saadfarooq:khoji-compiler:0.0.2'
-    compile 'com.github.saadfarooq:khoji-annotations:0.0.2'
+    apt 'com.github.saadfarooq:khoji-compiler:0.0.3'
+    compile 'com.github.saadfarooq:khoji-annotations:0.0.3'
 }
 ```
 
@@ -99,9 +99,3 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-
- [snapshots]: https://oss.sonatype.org/content/repositories/snapshots/
-
-Dislaimer
----------
-Most setup copied from Zac Sweers' Barber project (https://github.com/hzsweers/barber)
