@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.github.saadfarooq.sample.draweritem.DrawerItem;
 import com.github.saadfarooq.sample.draweritem.DrawerItemCollection;
+import com.github.saadfarooq.sample.draweritem.ListItem;
+import com.github.saadfarooq.sample.draweritem.ListItemCollection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,15 @@ public class MainActivity extends AppCompatActivity {
 
         ListView drawerList = (ListView) findViewById(R.id.drawer_list);
         drawerList.setAdapter(new DrawerListAdapter(new DrawerItemCollection("Main title", new ArrayList<String>()).getCollectedItems()));
+        ListView listItemList = (ListView) findViewById(R.id.list_items);
+        listItemList.setAdapter(new ListItemsAdapter(new ListItemCollection().getCollectedItems()));
+        listItemList.setEmptyView((TextView) findViewById(R.id.empty));
     }
 
     private class DrawerListAdapter extends BaseAdapter {
         private final List<DrawerItem> drawerItemsList;
 
-        public DrawerListAdapter(List<DrawerItem> drawerItemsList) {
+        public DrawerListAdapter(java.util.List<DrawerItem> drawerItemsList) {
             this.drawerItemsList = drawerItemsList;
         }
 
@@ -59,6 +63,38 @@ public class MainActivity extends AppCompatActivity {
                 convertView = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.activity_list_item, parent, false);
             }
             ((TextView) convertView.findViewById(android.R.id.text1)).setText(drawerItemsList.get(position).getTitle());
+            return convertView;
+        }
+    }
+
+    private class ListItemsAdapter extends BaseAdapter {
+        private final List<ListItem> listItems;
+
+        public ListItemsAdapter(List<ListItem> listItems) {
+            this.listItems = listItems;
+        }
+
+        @Override
+        public int getCount() {
+            return listItems.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return listItems.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+                convertView = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.activity_list_item, parent, false);
+            }
+            ((TextView) convertView.findViewById(android.R.id.text1)).setText(listItems.get(position).getListItemName());
             return convertView;
         }
     }
