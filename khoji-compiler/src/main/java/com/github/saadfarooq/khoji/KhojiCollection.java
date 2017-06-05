@@ -50,7 +50,6 @@ public class KhojiCollection {
         TypeSpec.Builder magicItems = TypeSpec.classBuilder(genClassName).addModifiers(Modifier.PUBLIC);
         // Create constructor with main dependencies and field for each
         MethodSpec.Builder constructorBuilder = MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC);
-        System.out.println("Main deps: " + mainDeps);
         for (TypeMirror dependency : mainDeps) {
             String fieldName = getVariableName(dependency);
             constructorBuilder.addParameter(TypeName.get(dependency), fieldName);

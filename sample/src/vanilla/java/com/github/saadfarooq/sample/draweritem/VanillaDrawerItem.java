@@ -4,7 +4,6 @@ import com.github.saadfarooq.khoji.KhojiTarget;
 
 import java.util.List;
 
-@KhojiTarget
 public class VanillaDrawerItem implements DrawerItem {
     private final String title;
 
