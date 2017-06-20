@@ -2,8 +2,10 @@ Khoji
 ======
 
 Khoji finds all classes annotated with `@KhojiTarget` at compile time and generates a class for you to access them from.
-The primary use case for this was to be able to selectively include DrawerItems in an Android drawer menu based on 
-conditions and source-sets used.
+
+The primary use case for this is to be able to selectively include UI elements, such as DrawerItems
+ or settings tiles, in an Android drawer menu based on conditions (e.g. debug or release) and source-sets used.
+This avoids checking for these conditions everywhere in your source code.
 
 * Create an interface you want to use, say `DrawerItem`
 * Implement the interface on classes and annotated with `@KhojiTarget`
@@ -14,7 +16,7 @@ In the drawer item example, we use some external data and BuildConfig informatio
 be visible.
 
 Usage
------------
+------
 Consider the following interface:
 ```java
 public interface DrawerItem {
@@ -47,7 +49,7 @@ public class ParticularUserDrawerItem {
 }
 ```
 
-The class generate is in the same package as the interface and is called `DrawerItemCollection`. It takes all 
+The class generated is in the same package as the interface and is called `DrawerItemCollection`. It takes all 
 implementation class dependencies through it's constructor so it might be used as.
 
 ```java
@@ -59,6 +61,35 @@ implementation class dependencies through it's constructor so it might be used a
 
 Now you can use, for example, a debug source set which holds a certain feature, the drawer item to access that feature 
 will only be available in builds which have that source set enabled.
+
+#### Special Cases
+What if you only have implementations of the interface in some source sets and not in others? Or what 
+if the generated class's dependencies are different between two source sets?
+
+This could occur, for example, if you have some services that you start in debug but none of who have
+ made it to release yet. The `DiagnosisServiceCollection(dep1, dep2).getCollectedItems()` call would 
+ give a compile error because `DiagnosisServiceCollection` is not generated for release since there 
+ are `@KhojiTarget` annotated `DiagnosisService` implementations in release yet.
+  
+  In that case, you can use the `@KhojiAlwaysGenerate` annotation on the interface itself and define
+ it's dependencies on the annotation. With `@KhojiAlwaysGenerate` annotated interface, if an
+ annotated implementation of the interface exists in a source path, everything proceeds as normal.
+ But in the case where there's no implementation, the collection class will be generated from the 
+ signature of the `@KhojiAlwaysGenerate` annotation with `getColledtedItems()` returning an empty list.
+ 
+ ```java
+    @KhojiAlwaysGenerate(
+            parameters = { Dep1.class, Dep2.class }
+    )
+    public interface DiagnosisService {
+        void doSomething(Application application);
+    }
+     
+ ```
+
+The above will generate the same signature as the source path with implementations i.e.
+`DiagnosisServiceCollection(dep1, dep2).getCollectedItems()` so the usage code is exactly the same
+regardless of build type.
 
 Installation
 ------------
@@ -72,7 +103,7 @@ buildscript {
     }
 }
 
-apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.neenbedankt.android-apt' // not required for newer version of Android gradle
 
 dependencies {
     apt 'com.github.saadfarooq:khoji-compiler:%%version%%'
@@ -80,13 +111,12 @@ dependencies {
 }
 ```
 
-Snapshots of the development version are available in [Sonatype's snapshots repository][snapshots].
 
 
 License
 -------
 
-    Copyright 2016 Saad Farooq
+    Copyright 2017 Saad Farooq
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

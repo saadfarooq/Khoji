@@ -57,7 +57,7 @@ subprojects { project ->
 }
 
 task genReadMe << {
-    def template = file('README.md.template').text
+    def template = file('README.template.md').text
     def result = template.replaceAll("%%version%%", VERSION_NAME)
     file("README.md").withWriter{ it << result }
 }
