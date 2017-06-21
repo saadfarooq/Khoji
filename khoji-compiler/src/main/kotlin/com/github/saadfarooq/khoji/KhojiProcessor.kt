@@ -149,11 +149,15 @@ class KhojiProcessor : AbstractProcessor() {
                             .apply {
                                 list.forEach { (annotatedClass, _, constructorParameters) ->
                                     annotatedClass?.let { // only add statements if class in annotated
-                                        constructorParameters.map { it.variableName() }
-                                            .reduce { acc, s -> "$acc, $s" } // format variables with ,
-                                            .let {
-                                                this.addStatement("result.add(new \$T($it))", annotatedClass)
-                                            }
+                                        if (constructorParameters.isEmpty()) {
+                                            this.addStatement("result.add(new \$T())", annotatedClass)
+                                        } else {
+                                            constructorParameters.map { it.variableName() }
+                                                .reduce { acc, s -> "$acc, $s" } // format variables with ,
+                                                .let {
+                                                    this.addStatement("result.add(new \$T($it))", annotatedClass)
+                                                }
+                                        }
                                     }
                                 }
                             }
