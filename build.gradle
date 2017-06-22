@@ -31,7 +31,7 @@ ext {
     javapoet = 'com.squareup:javapoet:1.7.0'
     autoService = 'com.google.auto.service:auto-service:1.0-rc2'
 
-    kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    kotlin_stdlib = "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 subprojects { project ->
