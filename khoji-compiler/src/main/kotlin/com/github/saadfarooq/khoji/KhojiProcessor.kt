@@ -55,6 +55,7 @@ class KhojiProcessor : AbstractProcessor() {
                     return false
                 }
             }
+            .sortedWith(compareBy({ it.toString() })) // sort the annotated class by name for deterministic order
             .map { KhojiAnnotatedClassDetails(it, it.interfaces[0], constructorParametersForClass(it)) }
             .groupBy { it.khojiInterface }
             .apply {
