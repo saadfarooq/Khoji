@@ -1,5 +1,8 @@
-Khoji
+Khoji (Archived)
 ======
+
+Primary use case was Android which has progressively moved to a modular structure and annotation processors can't proccess modular dependencies.
+-----
 
 Khoji finds all classes annotated with `@KhojiTarget` at compile time and generates a class for you to access them from.
 
